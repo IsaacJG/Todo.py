@@ -43,5 +43,5 @@ def main(argv):
         task_list.clear()
 
     todo_txt = file('todo.txt', 'w')
-    todo_txt.write(str(task_list))
+    todo_txt.write(repr(task_list))
     pickle.dump(task_list, file('todo.raw', 'w'))

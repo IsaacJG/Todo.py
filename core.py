@@ -12,7 +12,7 @@ class Task:
         return '{0}: {1} @ {2}'.format(self.catagory, self.task, self.due_date)
 
     def __repr__(self):
-        if self.due_date is not None:
+        if self.due_date is not None and not self.due_date == '':
             return '[{0}] {1}'.format(self.due_date, self.task)
         else:
             return self.task
