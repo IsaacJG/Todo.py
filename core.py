@@ -72,6 +72,7 @@ class TaskListVisualizer:
 
     def by_date(self):
         # almost works...
+        
         class TaskComp(object):
             def __init__(self, obj, *args):
                 self.obj = obj
