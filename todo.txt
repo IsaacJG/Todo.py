@@ -1,4 +1,0 @@
-(programming)
-    [8/20/12] finish todo.py
-(school)
-    AP Physics Exam Study stuff
