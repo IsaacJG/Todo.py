@@ -8,7 +8,7 @@ from core import Task
 from CLI.ArgParser import Parser
 
 def main(argv):
-    task_list = pickle.load(file('todo.raw', 'r')) if os.path.exists('todo.raw') else TaskList()
+    task_list = pickle.load(open('todo.raw', 'r')) if os.path.exists('todo.raw') else TaskList()
     args = Parser(argv).parse()
     if args['action'] == Constants.ACTION_LIST:
         if args.has_key('action_switch'):
@@ -41,7 +41,28 @@ def main(argv):
 
     elif args['action'] == Constants.ACTION_CLEAR:
         task_list.clear()
+    else:
+        print('''
+Usage: python todo.py [action] [args]
 
-    todo_txt = file('todo.txt', 'w')
+Actions                 Args
+------------------------------
+add                 (required) name
+                    -d due date
+                    -cat catagory
+
+remove              (required) name
+
+edit                (required) name
+                    -d due date
+                    -cat catagory
+                    -rn rename
+
+clear               
+
+list                -date
+''')
+
+    todo_txt = open('todo.txt', 'w')
     todo_txt.write(repr(task_list))
-    pickle.dump(task_list, file('todo.raw', 'w'))
+    pickle.dump(task_list, open('todo.raw', 'w'))
