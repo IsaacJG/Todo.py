@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import Constants
+import CLI.Constants
 
 class Parser: 
     def __init__(self, args):
