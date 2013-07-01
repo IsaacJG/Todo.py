@@ -7,7 +7,8 @@ class Task:
         self.task = task
         self.due_date = due_date
         self.catagory = catagory
-
+        self.int_duedate = [due_date.split('/')[2], due_date.split('/')[0], due_date.split('/')[1]]
+    
     def __str__(self):
         return '{0}: {1} @ {2}'.format(self.catagory, self.task, self.due_date)
 
@@ -71,52 +72,15 @@ class TaskListVisualizer:
         return rtrn_str
 
     def by_date(self):
-        # almost works...
-        
-        class TaskComp(object):
-            def __init__(self, obj, *args):
-                self.obj = obj
-            def __comp(self, other):
-                if other.__class__ == 'core.TaskComp':
-                    if self.obj.due_date.count('/') == 0 or other.obj.due_date.count('/') == 0:
-                        return -1
-
-                    due = self.obj.due_date.split('/')
-                    odue = other.obj.due_date.split('/')
-                    if due[2] == odue[2]:
-                        if due[1] < odue[1]:
-                            return self.obj
-                        elif due[1] > odue[1]:
-                            return other.obj
-                        else:
-                            if due[0] < odue[0]:
-                                return self.obj
-                            elif due[0] > odue[0]:
-                                return other.obj
-                            else:
-                                return None
-                    elif due[2] < odue[2]:
-                        return self.obj
-                    else:
-                        return other.obj
-                else:
-                    return None
-                
-            def __lt__(self, other):
-                return True if self.__comp(other) == self.obj else False
-            def __gt__(self, other):
-                return True if self.__comp(other) == other.obj else False
-            def __eq__(self, other):
-                return True if self.__comp(other) == None else False
-            def __le__(self, other):
-                return True if self.__lt__(other) or self.__eq__(other) else False
-            def __ge__(self, other):
-                return True if self.__gt__(other) or self.__eq__(other) else False
-            def __ne__(self, other):
-                return True if self.__comp(other) == -1 else False
-            
         rtrn_str = ''
-        tasks = sorted(self.task_list.tasks, key=TaskComp)
+        tasks = sorted(self.task_list.tasks, key=lambda task: task.int_duedate, reverse=True)
         for task in tasks:
             rtrn_str += '{0}\n'.format(str(task))
         return rtrn_str
+
+if __name__ == '__main__':
+    tasks = TaskList()
+    tasks.add_task(Task('test early', due_date='6/31/13', catagory='test'))
+    tasks.add_task(Task('test organize by date', due_date='7/1/13', catagory='todo.py'))
+    tasks.add_task(Task('test late', due_date='7/2/13', catagory='test'))
+    print(tasks.visualizer.by_date())
