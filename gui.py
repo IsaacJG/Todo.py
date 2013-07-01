@@ -1,14 +1,17 @@
+#!/usr/bin/python
+
 import os
-import tkSimpleDialog
-from tkMessageBox import askquestion
-from Tkinter import *
+from tkinter import simpledialog
+from tkinter import *
+from tkinter.messagebox import askquestion
 from core import Task
 from core import TaskList
 from pickle import load
 from pickle import dump
 
 
-class AddTaskDialog(tkSimpleDialog.Dialog):
+#class AddTaskDialog(tkSimpleDialog.Dialog):
+class AddTaskDialog(simpledialog.Dialog):
     def body(self, master):
         Label(master, text='Name:').grid(row=0)
         Label(master, text='Due date:').grid(row=1)
@@ -86,12 +89,12 @@ class gui:
         self.refresh()
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
     def save(self):
-        todo_txt = file('todo.txt', 'w')
-        todo_txt.write(str(self.task_list))
-        dump(self.task_list, file('todo.raw', 'w'))
+        with open('todo.txt', 'w') as todo_txt:
+            todo_txt.write(str(self.task_list))
+        dump(self.task_list, open('todo.raw', 'w'))
         
 if __name__ == '__main__':
     if os.path.exists('todo.raw'):
-        gui(load(file('todo.raw', 'r')))
+        gui(load(open('todo.raw', 'r')))
     else:
         gui(TaskList())
