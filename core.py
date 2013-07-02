@@ -77,10 +77,3 @@ class TaskListVisualizer:
         for task in tasks:
             rtrn_str += '{0}\n'.format(str(task))
         return rtrn_str
-
-if __name__ == '__main__':
-    tasks = TaskList()
-    tasks.add_task(Task('test early', due_date='6/31/13', catagory='test'))
-    tasks.add_task(Task('test organize by date', due_date='7/1/13', catagory='todo.py'))
-    tasks.add_task(Task('test late', due_date='7/2/13', catagory='test'))
-    print(tasks.visualizer.by_date())
