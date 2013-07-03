@@ -6,8 +6,8 @@ from tkinter import *
 from tkinter.messagebox import askquestion
 from core import Task
 from core import TaskList
-from pickle import load
-from pickle import dump
+from core import save_tasks
+from core import load_tasks
 
 
 #class AddTaskDialog(tkSimpleDialog.Dialog):
@@ -89,12 +89,11 @@ class gui:
         self.refresh()
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
     def save(self):
-        with open('todo.txt', 'w') as todo_txt:
-            todo_txt.write(str(self.task_list))
-        dump(self.task_list, open('todo.raw', 'w'))
+        save_tasks(self.task_list)
         
 if __name__ == '__main__':
-    if os.path.exists('todo.raw'):
-        gui(load(open('todo.raw', 'r')))
+    tasks_list = load_tasks()
+    if tasks_list:
+        gui(tasks_list)
     else:
         gui(TaskList())
