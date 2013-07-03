@@ -1,9 +1,20 @@
 #!/usr/bin/env python
 
-from operator import attrgetter
+import pickle
+from os.path import exists as file_exists
+
+def save_tasks(task_list):
+    with open('todo.txt', 'w') as todo_file:
+        todo_file.write(str(task_list))
+    pickle.dump(task_list, open('todo.raw', 'wb'))
+
+def load_tasks():
+    if file_exists('todo.raw'):
+        task_list = pickle.load(open('todo.raw', 'rb'))
+        return task_list
 
 class Task:
-    def __init__(self, task, due_date=None, catagory=None):
+    def __init__(self, task, due_date=None, catagory='None'):
         self.task = task
         self.due_date = due_date
         self.catagory = catagory
