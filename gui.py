@@ -12,11 +12,6 @@ from core import load_tasks
 
 #class AddTaskDialog(tkSimpleDialog.Dialog):
 class AddTaskDialog(simpledialog.Dialog):
-    def validate(self):
-        if 'name' in self.__dir__():
-            return True
-        return False
-
     def body(self, master):
         Label(master, text='Name:').grid(row=0)
         Label(master, text='Due date:').grid(row=1)
@@ -80,12 +75,11 @@ class gui:
 
     def add_task(self):
         add_task_dialog = AddTaskDialog(self.root)
-        if add_task_dialog.validate():
-            name = add_task_dialog.name
-            due_date = add_task_dialog.due_date if add_task_dialog.due_date != '' else None
-            catagory = add_task_dialog.catagory if add_task_dialog.catagory != '' else None
-            self.task_list.add_task(Task(add_task_dialog.name, add_task_dialog.due_date, add_task_dialog.catagory))
-            self.refresh()
+        name = add_task_dialog.name
+        due_date = add_task_dialog.due_date if add_task_dialog.due_date != '' else None
+        catagory = add_task_dialog.catagory if add_task_dialog.catagory != '' else None
+        self.task_list.add_task(Task(add_task_dialog.name, add_task_dialog.due_date, add_task_dialog.catagory))
+        self.refresh()
 
     def remove_task(self):
         for selection in self.list_box.curselection():
