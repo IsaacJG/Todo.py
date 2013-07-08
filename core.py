@@ -3,11 +3,6 @@
 import pickle
 from os.path import exists as file_exists
 
-def load_tasks():
-    if file_exists('todo.raw'):
-        task_list = pickle.load(open('todo.raw', 'rb'))
-        return task_list
-
 class Task:
     def __init__(self, task, due_date=None, catagory='None'):
         self.task = task
@@ -25,6 +20,10 @@ class Task:
             return self.task
 
 class TaskList:
+    def load():
+        if file_exists('todo.raw'):
+            return pickle.load(open('todo.raw', 'rb'))
+
     def __init__(self):
         self.tasks = []
         self.visualizer = TaskListVisualizer(self)
