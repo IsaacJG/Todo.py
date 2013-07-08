@@ -62,7 +62,7 @@ class TaskList:
                 cat_list.append(task.catagory)
         return cat_list
 
-    def length(self):
+    def __len__(self):
         return self.tasks.length
 
     def __str__(self):
