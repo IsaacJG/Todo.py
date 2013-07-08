@@ -75,11 +75,14 @@ class gui:
 
     def add_task(self):
         add_task_dialog = AddTaskDialog(self.root)
-        name = add_task_dialog.name
-        due_date = add_task_dialog.due_date if add_task_dialog.due_date != '' else None
-        catagory = add_task_dialog.catagory if add_task_dialog.catagory != '' else None
-        self.task_list.add_task(Task(add_task_dialog.name, add_task_dialog.due_date, add_task_dialog.catagory))
-        self.refresh()
+        try:
+            name = add_task_dialog.name
+            due_date = add_task_dialog.due_date if add_task_dialog.due_date != '' else None
+            catagory = add_task_dialog.catagory if add_task_dialog.catagory != '' else None
+            self.task_list.add_task(Task(add_task_dialog.name, add_task_dialog.due_date, add_task_dialog.catagory))
+            self.refresh()
+        except AttributeError:
+            pass
 
     def remove_task(self):
         for selection in self.list_box.curselection():
