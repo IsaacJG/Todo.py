@@ -3,11 +3,6 @@
 import pickle
 from os.path import exists as file_exists
 
-def save_tasks(task_list):
-    with open('todo.txt', 'w') as todo_file:
-        todo_file.write(str(task_list))
-    pickle.dump(task_list, open('todo.raw', 'wb'))
-
 def load_tasks():
     if file_exists('todo.raw'):
         task_list = pickle.load(open('todo.raw', 'rb'))
@@ -61,6 +56,11 @@ class TaskList:
             if cat_list.count(task.catagory) == 0:
                 cat_list.append(task.catagory)
         return cat_list
+
+    def save(self):
+        with open('todo.txt', 'w') as todo_file:
+            todo_file.write(str(self))
+        pickle.dump(self, open('todo.raw', 'wb'))
 
     def __len__(self):
         return self.tasks.length
